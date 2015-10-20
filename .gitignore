@@ -1,0 +1,17 @@
+**/bin/*
+**/gen/*
+**/build/*
+**/.idea/*
+**/*.iml
+.gradle
+/local.properties
+/.idea/workspace.xml
+.DS_Store
+.metadata/*
+**.hprof
+
+**.log
+*~
+
+*.orig
+*.exec
