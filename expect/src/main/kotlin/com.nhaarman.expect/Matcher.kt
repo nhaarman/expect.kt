@@ -21,4 +21,12 @@ open class Matcher<T : Any>(val actual: T?) {
       }
     }
   }
+
+  fun toBeNull(reason: () -> Any = { "" }) {
+    if (actual != null) {
+      fail (reason) {
+        expected(actual) { to("be", "null") }
+      }
+    }
+  }
 }

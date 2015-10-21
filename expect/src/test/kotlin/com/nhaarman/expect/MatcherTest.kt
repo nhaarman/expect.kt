@@ -7,6 +7,7 @@ class MatcherTest {
   @Test
   fun example_toBe() {
     val a = Any()
+   
     expect(a).toBe(a)
   }
 
@@ -14,7 +15,15 @@ class MatcherTest {
   fun example_toBeEqualTo() {
     val actual = Data(1)
     val expected = Data(1)
+
     expect(actual).toBeEqualTo(expected)
+  }
+
+  @Test
+  fun example_toBeNull() {
+    val actual: Int? = null
+
+    expect(actual).toBeNull()
   }
 
   @Test
@@ -109,6 +118,33 @@ class MatcherTest {
 
       matcher.toBeEqualTo(1)
     }
+  }
+
+  @Test
+  fun toBeNull_withNullValue_accepts() {
+    /* Given */
+    val matcher = Matcher<Int>(null)
+
+    /* When */
+    matcher.toBeNull()
+
+    /* Then */
+    awesome()
+  }
+
+  @Test
+  fun toBeNull_withNonNullValue_fails() {
+    /* Given */
+    val matcher = Matcher(3)
+
+    /* Then */
+    expectErrorWithMessage("Expected 3 to be null.") on {
+
+      matcher.toBeNull()
+    }
+
+    /* Then */
+    awesome()
   }
 
   open class Data(val value: Int) {

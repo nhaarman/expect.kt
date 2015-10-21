@@ -8,6 +8,7 @@ class StringMatcherTest {
   fun example_toContain() {
     val actual = "test"
     val expected = "es"
+
     expect(actual).toContain(expected)
   }
 
