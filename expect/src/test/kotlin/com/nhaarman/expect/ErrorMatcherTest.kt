@@ -54,7 +54,7 @@ class ErrorMatcherTest {
       }
       fail("Expected an error to be thrown")
     } catch(e: Error) {
-      if (e.getMessage()?.contains("But the following Error was thrown") == true) {
+      if (e.getMessage()?.contains("but the following Error was thrown") == true) {
         return
       }
 
@@ -102,7 +102,7 @@ class ErrorMatcherTest {
       }
       fail("Expected an error to be thrown")
     } catch(e: Error) {
-      if (e.getMessage()?.contains("But the following Error was thrown") == true) {
+      if (e.getMessage()?.contains("but the following Error was thrown") == true) {
         return
       }
 

@@ -2,7 +2,6 @@ package com.nhaarman.expect
 
 import java.io.PrintWriter
 import java.io.StringWriter
-import kotlin.test.fail
 
 fun expectErrorWithMessage(message: String): ErrorMatcher {
   return ErrorMatcher(message)
@@ -22,10 +21,19 @@ class ErrorMatcher(val message: String) {
 
       var actualStackTrace = stackTraceToString(e)
 
-      fail("\n\n\tExpected an Error to be thrown containing\n\t\t${message}\n\n\tBut the following Error was thrown:\n\n$actualStackTrace\n")
+      fail {
+        expected("an Error") {
+          to("be thrown containing") { message }
+          but("the following Error was thrown:", actualStackTrace)
+        }
+      }
     }
 
-    fail("\n\n\tExpected an Error to be thrown containing:\n\t\t${message}\n")
+    fail {
+      expected("an Error") {
+        to("be thrown containing") { message }
+      }
+    }
   }
 
   private fun stackTraceToString(t: Throwable): String {

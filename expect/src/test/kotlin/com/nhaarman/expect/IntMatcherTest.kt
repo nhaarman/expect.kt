@@ -93,7 +93,7 @@ class IntMatcherTest {
     val matcher = IntMatcher(actual)
 
     /* Then */
-    expectErrorWithMessage("Expected actual value to be smaller than 1, but actual value was null.") on{
+    expectErrorWithMessage("Expected actual value to be smaller than 1, but the actual value was null.") on{
 
       matcher.toBeSmallerThan(expected)
     }
@@ -149,7 +149,7 @@ class IntMatcherTest {
     val matcher = IntMatcher(actual)
 
     /* Then */
-    expectErrorWithMessage("Expected actual value to be greater than 1, but actual value was null.") on{
+    expectErrorWithMessage("Expected actual value to be greater than 1, but the actual value was null.") on{
 
       matcher.toBeGreaterThan(expected)
     }
