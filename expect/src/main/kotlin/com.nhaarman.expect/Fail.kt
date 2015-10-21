@@ -77,6 +77,7 @@ private fun render(value: Any?): String {
     "actual value", "an Error" -> "$value"
     is String -> "\"$value\""
     is Double, is Float, is Long, is Int, is Float, is Byte -> "$value"
+    is Range<*> -> "[${value.start} .. ${value.end}]"
     else -> "\n\t\t$value\n "
   }
 }

@@ -20,6 +20,11 @@ class NumberMatcherTest {
   }
 
   @Test
+  fun example_double_toBeIn() {
+    expect(0.5).toBeIn(0.0..1.0)
+  }
+
+  @Test
   fun example_float_toBeEqualTo() {
     expect(1.0f).toBeEqualTo(1.0f)
   }
@@ -240,5 +245,36 @@ class NumberMatcherTest {
 
       matcher.toBeGreaterThan(expected)
     }
+  }
+
+  @Test
+  fun toBeIn_withInRangeValue_accepts() {
+    /* Given */
+    val actual = 1
+    val expected = 0..2
+    val matcher = NumberMatcher(actual)
+
+    /* When */
+    matcher.toBeIn(expected)
+
+    /* Then */
+    awesome()
+  }
+
+  @Test
+  fun toBeIn_withOutRangeValue_accepts() {
+    /* Given */
+    val actual = 4
+    val expected = 0..2
+    val matcher = NumberMatcher(actual)
+
+    /* When */
+    expectErrorWithMessage("Expected 4 to be in [0 .. 2].") on {
+
+      matcher.toBeIn(expected)
+    }
+
+    /* Then */
+    awesome()
   }
 }

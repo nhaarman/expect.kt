@@ -41,4 +41,22 @@ class NumberMatcher<T : Number>(actual: T?) : Matcher<T>(actual) where T : Compa
       }
     }
   }
+
+  fun toBeIn(expected: Range<T>, reason: () -> Any = { "" }) {
+    if (actual === null) {
+      fail(reason) {
+        expected("actual value") {
+          to ("be in range") { expected }
+          but("the actual value was null")
+        }
+      }
+      return
+    }
+
+    if(actual !in expected ){
+      fail(reason) {
+        expected(actual) { to("be in") { expected } }
+      }
+    }
+  }
 }
