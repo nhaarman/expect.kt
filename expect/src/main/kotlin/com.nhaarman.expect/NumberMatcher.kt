@@ -1,13 +1,13 @@
 package com.nhaarman.expect
 
-fun expect(actual: Int?): IntMatcher {
-  return IntMatcher(actual)
+fun <T : Number> expect(actual: T?): NumberMatcher<T> where T : Comparable<T> {
+  return NumberMatcher(actual)
 }
 
-class IntMatcher(actual: Int?) : Matcher<Int>(actual) {
+class NumberMatcher<T : Number>(actual: T?) : Matcher<T>(actual) where T : Comparable<T> {
 
-  fun toBeSmallerThan(expected: Int, reason: () -> Any = { "" }) {
-    if (actual == null) {
+  fun toBeSmallerThan(expected: T, reason: () -> Any = { "" }) {
+    if (actual === null) {
       fail(reason) {
         expected("actual value") {
           to ("be smaller than") { expected }
@@ -24,8 +24,8 @@ class IntMatcher(actual: Int?) : Matcher<Int>(actual) {
     }
   }
 
-  fun toBeGreaterThan(expected: Int, reason: () -> Any = { "" }) {
-    if (actual == null) {
+  fun toBeGreaterThan(expected: T, reason: () -> Any = { "" }) {
+    if (actual === null) {
       fail(reason) {
         expected("actual value") {
           to ("be greater than") { expected }

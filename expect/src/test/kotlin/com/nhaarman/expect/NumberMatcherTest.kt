@@ -1,0 +1,244 @@
+package com.nhaarman.expect
+
+import org.junit.Test
+
+class NumberMatcherTest {
+
+  @Test
+  fun example_double_toBeEqualTo() {
+    expect(1.0).toBeEqualTo(1.0)
+  }
+
+  @Test
+  fun example_double_toBeSmallerThan() {
+    expect(1.0).toBeSmallerThan(2.0)
+  }
+
+  @Test
+  fun example_double_toBeGreaterThan() {
+    expect(1.0).toBeGreaterThan(0.0)
+  }
+
+  @Test
+  fun example_float_toBeEqualTo() {
+    expect(1.0f).toBeEqualTo(1.0f)
+  }
+
+  @Test
+  fun example_float_toBeSmallerThan() {
+    expect(1.0f).toBeSmallerThan(2.0f)
+  }
+
+  @Test
+  fun example_float_toBeGreaterThan() {
+    expect(1.0f).toBeGreaterThan(0.0f)
+  }
+
+  @Test
+  fun example_long_toBeEqualTo() {
+    expect(1L).toBeEqualTo(1L)
+  }
+
+  @Test
+  fun example_long_toBeSmallerThan() {
+    expect(1L).toBeSmallerThan(2L)
+  }
+
+  @Test
+  fun example_long_toBeGreaterThan() {
+    expect(1L).toBeGreaterThan(0L)
+  }
+
+  @Test
+  fun example_int_toBeEqualTo() {
+    expect(1).toBeEqualTo(1)
+  }
+
+  @Test
+  fun example_int_toBeSmallerThan() {
+    expect(1).toBeSmallerThan(2)
+  }
+
+  @Test
+  fun example_int_toBeGreaterThan() {
+    expect(1).toBeGreaterThan(0)
+  }
+
+  @Test
+  fun example_short_toBeEqualTo() {
+    val actual: Short = 1
+    val expected: Short = 1
+    expect(actual).toBeEqualTo(expected)
+  }
+
+  @Test
+  fun example_short_toBeSmallerThan() {
+    val actual: Short = 1
+    val expected: Short = 2
+    expect(actual).toBeSmallerThan(expected)
+  }
+
+  @Test
+  fun example_short_toBeGreaterThan() {
+    val actual: Short = 1
+    val expected: Short = 0
+    expect(actual).toBeGreaterThan(expected)
+  }
+
+  @Test
+  fun example_byte_toBeEqualTo() {
+    val actual: Byte = 1
+    val expected: Byte = 1
+    expect(actual).toBeEqualTo(expected)
+  }
+
+  @Test
+  fun example_byte_toBeSmallerThan() {
+    val actual: Byte = 1
+    val expected: Byte = 2
+    expect(actual).toBeSmallerThan(expected)
+  }
+
+  @Test
+  fun example_byte_toBeGreaterThan() {
+    val actual: Byte = 1
+    val expected: Byte = 0
+    expect(actual).toBeGreaterThan(expected)
+  }
+
+  @Test
+  fun toBeEqual_withEqualValues_accepts() {
+    /* Given */
+    val matcher = NumberMatcher(1.0)
+
+    /* When */
+    matcher.toBeEqualTo(1.0)
+
+    /* Then */
+    awesome()
+  }
+
+  @Test
+  fun toBeEqual_withUnEqualValues_fails() {
+    /* Given */
+    val matcher = NumberMatcher(1.0)
+
+    /* Then */
+    expectErrorWithMessage("to be equal to").on {
+
+      matcher.toBeEqualTo(2.0)
+    }
+  }
+
+  @Test
+  fun toBeSmallerThan_withSmallerActualValue_accepts() {
+    /* Given */
+    val actual = 1.0
+    val expected = 2.0
+    val matcher = NumberMatcher(actual)
+
+    /* When */
+    matcher.toBeSmallerThan(expected)
+
+    /* Then */
+    awesome()
+  }
+
+  @Test
+  fun toBeSmallerThan_withEqualActualValue_fails() {
+    /* Given */
+    val actual = 1.0
+    val expected = 1.0
+    val matcher = NumberMatcher(actual)
+
+    /* Then */
+    expectErrorWithMessage("Expected 1.0 to be smaller than 1.0.") on{
+
+      matcher.toBeSmallerThan(expected)
+    }
+  }
+
+  @Test
+  fun toBeSmallerThan_withGreaterActualValue_fails() {
+    /* Given */
+    val actual = 2.0
+    val expected = 1.0
+    val matcher = NumberMatcher(actual)
+
+    /* Then */
+    expectErrorWithMessage("Expected 2.0 to be smaller than 1.0.") on{
+
+      matcher.toBeSmallerThan(expected)
+    }
+  }
+
+  @Test
+  fun toBeSmallerThan_withNullActualValue_fails() {
+    /* Given */
+    val actual = null
+    val expected = 1.0
+    val matcher = NumberMatcher<Double>(actual)
+
+    /* Then */
+    expectErrorWithMessage("Expected actual value to be smaller than 1.0, but the actual value was null.") on{
+
+      matcher.toBeSmallerThan(expected)
+    }
+  }
+
+  @Test
+  fun toBeGreaterThan_withGreaterActualValue_accepts() {
+    /* Given */
+    val actual = 2.0
+    val expected = 1.0
+    val matcher = NumberMatcher(actual)
+
+    /* When */
+    matcher.toBeGreaterThan(expected)
+
+    /* Then */
+    awesome()
+  }
+
+  @Test
+  fun toBeGreaterThan_withEqualActualValue_fails() {
+    /* Given */
+    val actual = 1.0
+    val expected = 1.0
+    val matcher = NumberMatcher(actual)
+
+    /* Then */
+    expectErrorWithMessage("Expected 1.0 to be greater than 1.0.") on{
+
+      matcher.toBeGreaterThan(expected)
+    }
+  }
+
+  @Test
+  fun toBeGreaterThan_withSmallerActualValue_fails() {
+    /* Given */
+    val actual = 1.0
+    val expected = 2.0
+    val matcher = NumberMatcher(actual)
+
+    /* Then */
+    expectErrorWithMessage("Expected 1.0 to be greater than 2.0.") on{
+
+      matcher.toBeGreaterThan(expected)
+    }
+  }
+
+  @Test
+  fun toBeGreaterThan_withNullActualValue_fails() {
+    /* Given */
+    val actual = null
+    val expected = 1.0
+    val matcher = NumberMatcher<Double>(actual)
+
+    /* Then */
+    expectErrorWithMessage("Expected actual value to be greater than 1.0, but the actual value was null.") on{
+
+      matcher.toBeGreaterThan(expected)
+    }
+  }
+}

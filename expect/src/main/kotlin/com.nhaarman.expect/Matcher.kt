@@ -1,8 +1,6 @@
 package com.nhaarman.expect
 
-import kotlin.test.fail
-
-fun <T : Any> expect(actual: T): Matcher<T> {
+fun <T : Any> expect(actual: T?): Matcher<T> {
   return Matcher(actual)
 }
 

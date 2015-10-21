@@ -26,4 +26,12 @@ dependencies {
   testCompile group: 'junit', name: 'junit', version: '4.11'
 }
 
+test.afterTest { descriptor, result ->
+  if (result.getResultType() == TestResult.ResultType.FAILURE) {
+    exec {
+      executable "notify-send"
+      args("-t", "2000", descriptor.getClassName() + "." + descriptor.getName() + "()", result.getException().getMessage().trim())
+    }
+  }
+}
 
