@@ -10,8 +10,8 @@ class Fail(val reason: Any) {
 
   var expected: Expected? = null
 
-  fun expected(actual: Any?, init: Expected.() -> Unit = {}): Expected {
-    val expected = Expected(actual)
+  fun expected(actualValue: Any?, init: Expected.() -> Unit = {}): Expected {
+    val expected = Expected(actualValue)
     expected.init()
     this.expected = expected
     return expected
@@ -30,11 +30,15 @@ class Fail(val reason: Any) {
   }
 }
 
-class Expected(val actual: Any?) {
+class Expected(val actualValue: Any?) {
 
   var to: To? = null
 
   var but: But? = null
+
+  fun to(description: String) {
+    this.to = To(description, null)
+  }
 
   fun to(description: String, expected: Any) {
     this.to = To(description, expected)
@@ -53,7 +57,7 @@ class Expected(val actual: Any?) {
   }
 
   override fun toString(): String {
-    return "\t" + "Expected ${render(actual)} ${to ?: ""}${but ?: ""}".trim() + "."
+    return "\t" + "Expected ${render(actualValue)} ${to ?: ""}${but ?: ""}".trim() + "."
   }
 }
 

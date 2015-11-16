@@ -42,7 +42,7 @@ class NumberMatcher<T>(actual: T?) : Matcher<T>(actual) where T : Number, T : Co
     }
   }
 
-  fun toBeIn(expected: ClosedRange<T>, reason: () -> Any = { "" }) {
+  fun toBeIn(expected: Range<T>, reason: () -> Any = { "" }) {
     if (actual === null) {
       fail(reason) {
         expected("actual value") {
