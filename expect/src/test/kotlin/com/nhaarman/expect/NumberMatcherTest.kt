@@ -180,9 +180,8 @@ class NumberMatcherTest {
   @Test
   fun toBeSmallerThan_withNullActualValue_fails() {
     /* Given */
-    val actual = null
     val expected = 1.0
-    val matcher = NumberMatcher<Double>(actual)
+    val matcher = NumberMatcher<Double>(null)
 
     /* Then */
     expectErrorWithMessage("Expected actual value to be smaller than 1.0, but the actual value was null.") on{
@@ -236,9 +235,8 @@ class NumberMatcherTest {
   @Test
   fun toBeGreaterThan_withNullActualValue_fails() {
     /* Given */
-    val actual = null
     val expected = 1.0
-    val matcher = NumberMatcher<Double>(actual)
+    val matcher = NumberMatcher<Double>(null)
 
     /* Then */
     expectErrorWithMessage("Expected actual value to be greater than 1.0, but the actual value was null.") on{

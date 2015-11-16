@@ -1,10 +1,10 @@
 package com.nhaarman.expect
 
-fun <T : Number> expect(actual: T?): NumberMatcher<T> where T : Comparable<T> {
+fun <T> expect(actual: T?): NumberMatcher<T> where T : Number, T : Comparable<T> {
   return NumberMatcher(actual)
 }
 
-class NumberMatcher<T : Number>(actual: T?) : Matcher<T>(actual) where T : Comparable<T> {
+class NumberMatcher<T>(actual: T?) : Matcher<T>(actual) where T : Number, T : Comparable<T> {
 
   fun toBeSmallerThan(expected: T, reason: () -> Any = { "" }) {
     if (actual === null) {
@@ -42,7 +42,7 @@ class NumberMatcher<T : Number>(actual: T?) : Matcher<T>(actual) where T : Compa
     }
   }
 
-  fun toBeIn(expected: Range<T>, reason: () -> Any = { "" }) {
+  fun toBeIn(expected: ClosedRange<T>, reason: () -> Any = { "" }) {
     if (actual === null) {
       fail(reason) {
         expected("actual value") {

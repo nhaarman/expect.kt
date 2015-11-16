@@ -1,23 +1,8 @@
 apply plugin: 'java'
 apply plugin: 'kotlin'
 
-buildscript {
-  ext.kotlin_version = '0.14.451'
-
-  repositories {
-    mavenCentral()
-  }
-
-  dependencies {
-    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-  }
-}
-
 sourceSets {
   main.java.srcDirs += 'src/main/kotlin'
-}
-repositories {
-  mavenCentral()
 }
 
 dependencies {
@@ -26,12 +11,31 @@ dependencies {
   testCompile group: 'junit', name: 'junit', version: '4.11'
 }
 
-test.afterTest { descriptor, result ->
-  if (result.getResultType() == TestResult.ResultType.FAILURE) {
-    exec {
-      executable "notify-send"
-      args("-t", "2000", descriptor.getClassName() + "." + descriptor.getName() + "()", result.getException().getMessage().trim())
+publishing {
+  publications {
+    expect(MavenPublication) {
+      from components.java
+      groupId 'com.nhaarman'
+      artifactId 'expect.kt'
+      version getVersionName()
     }
   }
 }
 
+bintray {
+  user = hasProperty('bintray_user') ? bintray_user : System.getenv('BINTRAY_USER')
+  key = hasProperty('bintray_key') ? bintray_key : System.getenv('BINTRAY_KEY')
+  publications = ['expect']
+  pkg {
+    repo = 'maven'
+    name = 'Expect.kt'
+    desc = 'Test expectations in Kotlin'
+    licenses = ['Apache-2.0']
+    vcsUrl = 'https://github.com/nhaarman/expect.kt.git'
+    version {
+      name = getVersionName()
+      vcsTag = getVersionName()
+      released = new Date()
+    }
+  }
+}

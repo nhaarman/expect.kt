@@ -1,0 +1,63 @@
+gradle.allprojects {
+  ext.getVersionName = { ->
+    try {
+      def branchout = new ByteArrayOutputStream()
+      exec {
+        commandLine 'git', 'rev-parse', '--abbrev-ref', 'HEAD'
+        standardOutput = branchout
+      }
+      def branch = branchout.toString().trim()
+
+      def stdout = new ByteArrayOutputStream()
+      try {
+        exec {
+          commandLine 'git', 'describe', '--dirty'
+          standardOutput = stdout
+          errorOutput = null
+        }
+      } catch (ignored) {
+        return "0.0.0-SNAPSHOT"
+      }
+
+      def tag = stdout.toString().trim()
+
+      if (branch.equals("master") && !tag.contains("dirty") && !tag.contains("-")) {
+        return tag
+      } else {
+        def version = tag.substring(0, tag.indexOf('-'))
+        def snapshotVersion = version.substring(0, version.lastIndexOf(".")) + "." + (Integer.parseInt(version.substring(version.lastIndexOf(".") + 1)) + 1)
+        return snapshotVersion + "-SNAPSHOT"
+      }
+    } catch (ignored) {
+      return null;
+    }
+  }
+
+  ext.getCommitCount = {
+    try {
+      def stdout = new ByteArrayOutputStream()
+      exec {
+        commandLine 'git', 'rev-list', '--count', 'HEAD'
+        standardOutput = stdout
+      }
+      def commitCount = stdout.toString().trim().toInteger()
+      return commitCount
+    } catch (ignored) {
+      return 0;
+    }
+  }
+
+  ext.gitRevision = {
+    try {
+      def stdout = new ByteArrayOutputStream()
+      exec {
+        commandLine 'git', 'rev-list', 'HEAD', '-n', '1'
+        standardOutput = stdout
+      }
+      def commitRevision = stdout.toString().trim()
+      return commitRevision
+    } catch (ignored) {
+      return "(unknown revision)";
+    }
+  }
+}

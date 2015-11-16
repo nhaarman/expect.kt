@@ -9,13 +9,13 @@ fun expectErrorWithMessage(message: String): ErrorMatcher {
 
 class ErrorMatcher(val message: String) {
 
-  fun when_(function: () -> Any?) = on(function)
+  infix fun when_(function: () -> Any?) = on(function)
 
-  fun on(function: () -> Any?) {
+  infix fun on(function: () -> Any?) {
     try {
       function.invoke()
     } catch(e: Error) {
-      if (e.getMessage()?.contains(message) == true) {
+      if (e.message?.contains(message) == true) {
         return;
       }
 

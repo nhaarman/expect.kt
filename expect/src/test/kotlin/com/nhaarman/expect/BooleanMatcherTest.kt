@@ -43,8 +43,7 @@ class BooleanMatcherTest {
   @Test
   fun toHold_withNullValue_fails() {
     /* Given */
-    val actual = null
-    val matcher = BooleanMatcher(actual)
+    val matcher = BooleanMatcher(null)
 
     /* Then */
     expectErrorWithMessage("Expected actual value to be true, but the actual value was null.") on{
@@ -82,8 +81,7 @@ class BooleanMatcherTest {
   @Test
   fun notToHold_withNullValue_fails() {
     /* Given */
-    val actual = null
-    val matcher = BooleanMatcher(actual)
+    val matcher = BooleanMatcher(null)
 
     /* Then */
     expectErrorWithMessage("Expected actual value to be false, but the actual value was null.") on{

@@ -99,9 +99,8 @@ class StringMatcherTest {
   @Test
   fun toContain_withNullValue_fails() {
     /* Given */
-    val actual = null
     val expected = "nope"
-    val matcher = StringMatcher(actual)
+    val matcher = StringMatcher(null)
 
     /* Then */
     expectErrorWithMessage("but the actual value was null") when_ {
