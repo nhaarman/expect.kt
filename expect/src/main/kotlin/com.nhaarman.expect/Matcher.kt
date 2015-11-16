@@ -14,6 +14,14 @@ open class Matcher<T : Any>(val actual: T?) {
     }
   }
 
+  fun toNotBe(expected: T, reason: () -> Any = { "" }) {
+    if (actual === expected) {
+      fail(reason) {
+        expected(actual) { to("not be") { expected } }
+      }
+    }
+  }
+
   open fun toBeEqualTo(expected: T, reason: () -> Any = { "" }) {
     if (actual != expected ) {
       fail (reason) {
@@ -26,6 +34,14 @@ open class Matcher<T : Any>(val actual: T?) {
     if (actual != null) {
       fail (reason) {
         expected(actual) { to("be", "null") }
+      }
+    }
+  }
+
+  fun toNotBeNull(reason: () -> Any = { "" }) {
+    if (actual == null) {
+      fail (reason) {
+        expected(actual) { to("not be", "null") }
       }
     }
   }

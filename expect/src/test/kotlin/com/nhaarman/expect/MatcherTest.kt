@@ -7,7 +7,7 @@ class MatcherTest {
   @Test
   fun example_toBe() {
     val a = Any()
-   
+
     expect(a).toBe(a)
   }
 
@@ -51,6 +51,32 @@ class MatcherTest {
 
       matcher.toBe(expected)
     }
+  }
+
+  @Test
+  fun toNotBe_withEqualReferences_fails() {
+    /* Given */
+    val a = Any()
+    val matcher = Matcher(a)
+
+    /* Then */
+    expectErrorWithMessage("to not be") when_ {
+      matcher.toNotBe(a)
+    }
+  }
+
+  @Test
+  fun toNotBe_withUnequalReferences_accepts() {
+    /* Given */
+    val actual = Data(1)
+    val expected = Data(1)
+    val matcher = Matcher(actual)
+
+    /* Then */
+    matcher.toNotBe(expected)
+
+    /* Then */
+    awesome()
   }
 
   @Test
@@ -142,6 +168,29 @@ class MatcherTest {
 
       matcher.toBeNull()
     }
+  }
+
+  @Test
+  fun toNotBeNull_withNullValue_fails() {
+    /* Given */
+    val matcher = Matcher<Int>(null)
+
+    /* When */
+    expectErrorWithMessage("to not be null") on {
+      matcher.toNotBeNull()
+    }
+
+    /* Then */
+    awesome()
+  }
+
+  @Test
+  fun toNotBeNull_withNonNullValue_accepts() {
+    /* Given */
+    val matcher = Matcher(3)
+
+    /* When */
+    matcher.toNotBeNull()
 
     /* Then */
     awesome()
