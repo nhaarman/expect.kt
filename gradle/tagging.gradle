@@ -13,9 +13,9 @@ gradle.allprojects {
         exec {
           commandLine 'git', 'describe', '--dirty'
           standardOutput = stdout
-          errorOutput = null
         }
-      } catch (ignored) {
+      } catch (e) {
+        e.printStackTrace()
         return "0.0.0-SNAPSHOT"
       }
 
