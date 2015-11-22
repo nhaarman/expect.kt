@@ -29,9 +29,12 @@ publishing {
   }
 }
 
+def bUser = hasProperty('bintray_user') ? bintray_user : System.getenv('BINTRAY_USER')
+def bKey = hasProperty('bintray_key') ? bintray_key : System.getenv('BINTRAY_KEY')
+
 bintray {
-  user = hasProperty('bintray_user') ? bintray_user : System.getenv('BINTRAY_USER')
-  key = hasProperty('bintray_key') ? bintray_key : System.getenv('BINTRAY_KEY')
+  user = bUser
+  key = bKey
   publications = ['expect']
   pkg {
     repo = 'maven'
