@@ -37,7 +37,7 @@ java.lang.AssertionError:
 
 Due to Kotlin's [extensions](https://kotlinlang.org/docs/reference/extensions.html), we can easily add functionality to an existing matcher.
 
-```
+```kotlin
 fun StringMatcher.toBeEmpty() {
   if (actual?.isEmpty() != true) {
     fail {
