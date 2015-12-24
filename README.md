@@ -59,6 +59,29 @@ java.lang.AssertionError:
 	Expected actual value to be empty, but actual value was "test".
 ```
 
+## Custom matchers
+
+You can also write matchers for custom types:
+
+```kotlin
+data class MyType(val name: String)
+
+fun expect(actual: MyType?) : MyTypeMatcher {
+  return MyTypeMatcher(actual)
+}
+
+class MyTypeMatcher(actual: MyType?) : Matcher<MyType>(actual) {
+
+  fun toBeNamed(expected: String) {
+    if(actual?.name != expected) {
+      fail {
+        expected(actual?.name) { to("be") { expected } }
+      }
+    }
+  }
+}
+```
+
 ## Setup
 
 To use Expect.kt in your gradle test builds, add the following to your `build.gradle`:
