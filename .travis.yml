@@ -1,7 +1,7 @@
 language: java
 
 install:
-  - true
+  - git fetch --tags
 
 script:
   - ./gradlew assemble test
