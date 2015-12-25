@@ -1,9 +1,9 @@
 package com.nhaarman.expect
 
-fun fail(reason: () -> Any = { "" }, init: Fail.() -> Unit) {
+fun fail(reason: () -> Any = { "" }, init: Fail.() -> Unit = {}) {
     val fail = Fail(reason.invoke())
     fail.init()
-    kotlin.test.fail(fail.toString())
+    throw AssertionError(fail.toString())
 }
 
 class Fail(val reason: Any) {

@@ -1,7 +1,6 @@
 package com.nhaarman.expect
 
 import org.junit.Test
-import kotlin.test.fail
 
 class ErrorMatcherTest {
 
@@ -39,7 +38,7 @@ class ErrorMatcherTest {
             return
         }
 
-        fail("Expected an error to be thrown")
+        fail({ "Expected an error to be thrown" })
     }
 
     @Test
@@ -52,13 +51,13 @@ class ErrorMatcherTest {
             matcher.on {
                 throw Error("nope")
             }
-            fail("Expected an error to be thrown")
+            fail({ "Expected an error to be thrown" })
         } catch(e: Error) {
             if (e.message?.contains("but the following Error was thrown") == true) {
                 return
             }
 
-            fail("Expected error with wrong error message to be thrown")
+            fail({ "Expected error with wrong error message to be thrown" })
         }
     }
 
@@ -84,7 +83,7 @@ class ErrorMatcherTest {
         /* When */
         try {
             matcher.when_ {}
-            fail("Expected an error to be thrown")
+            fail({ "Expected an error to be thrown" })
         } catch(e: Error) {
             awesome()
         }
@@ -100,13 +99,13 @@ class ErrorMatcherTest {
             matcher.when_ {
                 throw Error("nope")
             }
-            fail("Expected an error to be thrown")
+            fail({ "Expected an error to be thrown" })
         } catch(e: Error) {
             if (e.message?.contains("but the following Error was thrown") == true) {
                 return
             }
 
-            fail("Expected error with wrong error message to be thrown")
+            fail({ "Expected error with wrong error message to be thrown" })
         }
     }
 }
