@@ -1,7 +1,22 @@
+/*
+ * Copyright 2016 Niek Haarman
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.nhaarman.expect
 
 import org.junit.Test
-import kotlin.test.fail
 
 class ErrorMatcherTest {
 
@@ -39,7 +54,7 @@ class ErrorMatcherTest {
             return
         }
 
-        fail("Expected an error to be thrown")
+        fail({ "Expected an error to be thrown" })
     }
 
     @Test
@@ -52,13 +67,13 @@ class ErrorMatcherTest {
             matcher.on {
                 throw Error("nope")
             }
-            fail("Expected an error to be thrown")
+            fail({ "Expected an error to be thrown" })
         } catch(e: Error) {
             if (e.message?.contains("but the following Error was thrown") == true) {
                 return
             }
 
-            fail("Expected error with wrong error message to be thrown")
+            fail({ "Expected error with wrong error message to be thrown" })
         }
     }
 
@@ -84,7 +99,7 @@ class ErrorMatcherTest {
         /* When */
         try {
             matcher.when_ {}
-            fail("Expected an error to be thrown")
+            fail({ "Expected an error to be thrown" })
         } catch(e: Error) {
             awesome()
         }
@@ -100,13 +115,13 @@ class ErrorMatcherTest {
             matcher.when_ {
                 throw Error("nope")
             }
-            fail("Expected an error to be thrown")
+            fail({ "Expected an error to be thrown" })
         } catch(e: Error) {
             if (e.message?.contains("but the following Error was thrown") == true) {
                 return
             }
 
-            fail("Expected error with wrong error message to be thrown")
+            fail({ "Expected error with wrong error message to be thrown" })
         }
     }
 }
