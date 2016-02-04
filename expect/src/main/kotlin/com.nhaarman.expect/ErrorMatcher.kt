@@ -29,8 +29,8 @@ class ErrorMatcher(val message: String) {
 
     infix fun on(function: () -> Any?) {
         try {
-            function.invoke()
-        } catch(e: Error) {
+            function()
+        } catch(e: Throwable) {
             if (e.message?.contains(message) == true) {
                 return;
             }
