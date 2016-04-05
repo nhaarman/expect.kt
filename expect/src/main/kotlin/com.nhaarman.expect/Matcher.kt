@@ -22,7 +22,7 @@ fun <T : Any> expect(actual: T?): Matcher<T> {
 
 open class Matcher<T : Any>(val actual: T?) {
 
-    fun toBe(expected: T, reason: () -> Any = { "" }) {
+    fun toBeReferentially(expected: T, reason: () -> Any = { "" }) {
         if (actual !== expected) {
             fail (reason) {
                 expected(actual) { to("be") { expected } }
@@ -30,7 +30,7 @@ open class Matcher<T : Any>(val actual: T?) {
         }
     }
 
-    fun toNotBe(expected: T, reason: () -> Any = { "" }) {
+    fun toNotBeReferentially(expected: T, reason: () -> Any = { "" }) {
         if (actual === expected) {
             fail(reason) {
                 expected(actual) { to("not be") { expected } }
@@ -38,7 +38,7 @@ open class Matcher<T : Any>(val actual: T?) {
         }
     }
 
-    open fun toBeEqualTo(expected: T, reason: () -> Any = { "" }) {
+    open fun toBe(expected: T, reason: () -> Any = { "" }) {
         if (actual != expected ) {
             fail (reason) {
                 expected(actual) { to("be equal to", expected) }

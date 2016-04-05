@@ -24,7 +24,7 @@ class MatcherTest {
     fun example_toBe() {
         val a = Any()
 
-        expect(a).toBe(a)
+        expect(a).toBeReferentially(a)
     }
 
     @Test
@@ -32,7 +32,7 @@ class MatcherTest {
         val actual = Data(1)
         val expected = Data(1)
 
-        expect(actual).toBeEqualTo(expected)
+        expect(actual).toBe(expected)
     }
 
     @Test
@@ -49,7 +49,7 @@ class MatcherTest {
         val matcher = Matcher(a)
 
         /* When */
-        matcher.toBe(a)
+        matcher.toBeReferentially(a)
 
         /* Then */
         awesome()
@@ -65,7 +65,7 @@ class MatcherTest {
         /* Then */
         expectErrorWithMessage("to be") when_ {
 
-            matcher.toBe(expected)
+            matcher.toBeReferentially(expected)
         }
     }
 
@@ -77,7 +77,7 @@ class MatcherTest {
 
         /* Then */
         expectErrorWithMessage("to not be") when_ {
-            matcher.toNotBe(a)
+            matcher.toNotBeReferentially(a)
         }
     }
 
@@ -89,7 +89,7 @@ class MatcherTest {
         val matcher = Matcher(actual)
 
         /* Then */
-        matcher.toNotBe(expected)
+        matcher.toNotBeReferentially(expected)
 
         /* Then */
         awesome()
@@ -102,7 +102,7 @@ class MatcherTest {
         val matcher = Matcher(data)
 
         /* When */
-        matcher.toBeEqualTo(data)
+        matcher.toBe(data)
 
         /* Then */
         awesome()
@@ -116,7 +116,7 @@ class MatcherTest {
         val matcher = Matcher(first)
 
         /* When */
-        matcher.toBeEqualTo(second)
+        matcher.toBe(second)
 
         /* Then */
         awesome()
@@ -132,7 +132,7 @@ class MatcherTest {
         /* Then */
         expectErrorWithMessage("to be equal to").when_ {
 
-            matcher.toBeEqualTo(second)
+            matcher.toBe(second)
         }
     }
 
@@ -146,7 +146,7 @@ class MatcherTest {
         /* Then */
         expectErrorWithMessage("to be equal to").when_ {
 
-            matcher.toBeEqualTo(second)
+            matcher.toBe(second)
         }
     }
 
@@ -158,7 +158,7 @@ class MatcherTest {
         /* Then */
         expectErrorWithMessage("to be equal to").when_ {
 
-            matcher.toBeEqualTo(1)
+            matcher.toBe(1)
         }
     }
 
