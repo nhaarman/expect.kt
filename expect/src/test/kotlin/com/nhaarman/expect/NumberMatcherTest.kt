@@ -22,7 +22,7 @@ class NumberMatcherTest {
 
     @Test
     fun example_double_toBeEqualTo() {
-        expect(1.0).toBeEqualTo(1.0)
+        expect(1.0).toBe(1.0)
     }
 
     @Test
@@ -42,7 +42,7 @@ class NumberMatcherTest {
 
     @Test
     fun example_float_toBeEqualTo() {
-        expect(1.0f).toBeEqualTo(1.0f)
+        expect(1.0f).toBe(1.0f)
     }
 
     @Test
@@ -57,7 +57,7 @@ class NumberMatcherTest {
 
     @Test
     fun example_long_toBeEqualTo() {
-        expect(1L).toBeEqualTo(1L)
+        expect(1L).toBe(1L)
     }
 
     @Test
@@ -72,7 +72,7 @@ class NumberMatcherTest {
 
     @Test
     fun example_int_toBeEqualTo() {
-        expect(1).toBeEqualTo(1)
+        expect(1).toBe(1)
     }
 
     @Test
@@ -89,7 +89,7 @@ class NumberMatcherTest {
     fun example_short_toBeEqualTo() {
         val actual: Short = 1
         val expected: Short = 1
-        expect(actual).toBeEqualTo(expected)
+        expect(actual).toBe(expected)
     }
 
     @Test
@@ -110,7 +110,7 @@ class NumberMatcherTest {
     fun example_byte_toBeEqualTo() {
         val actual: Byte = 1
         val expected: Byte = 1
-        expect(actual).toBeEqualTo(expected)
+        expect(actual).toBe(expected)
     }
 
     @Test
@@ -133,7 +133,7 @@ class NumberMatcherTest {
         val matcher = NumberMatcher(1.0)
 
         /* When */
-        matcher.toBeEqualTo(1.0)
+        matcher.toBe(1.0)
 
         /* Then */
         awesome()
@@ -147,7 +147,7 @@ class NumberMatcherTest {
         /* Then */
         expectErrorWithMessage("to be equal to").on {
 
-            matcher.toBeEqualTo(2.0)
+            matcher.toBe(2.0)
         }
     }
 

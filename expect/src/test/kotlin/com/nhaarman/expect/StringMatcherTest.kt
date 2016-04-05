@@ -36,7 +36,7 @@ class StringMatcherTest {
         val matcher = StringMatcher(actual)
 
         /* When */
-        matcher.toBeEqualTo(expected)
+        matcher.toBe(expected)
 
         /* Then */
         awesome()
@@ -52,7 +52,7 @@ class StringMatcherTest {
         /* Then */
         expectErrorWithMessage("to be equal to").when_ {
 
-            matcher.toBeEqualTo(expected)
+            matcher.toBe(expected)
         }
     }
 
