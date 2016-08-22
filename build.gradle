@@ -1,29 +1,31 @@
 buildscript {
-  ext.kotlin_version = '1.0.2'
+    ext.kotlin_version = '1.0.3'
 
-  repositories {
-    mavenCentral()
-    jcenter()
-  }
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
 
-  dependencies {
-    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-  }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "com.github.ben-manes:gradle-versions-plugin:0.13.0"
+    }
 }
 
 plugins {
-  id 'com.jfrog.bintray' version '1.4'
+    id 'com.jfrog.bintray' version '1.7.1'
 }
 
 apply plugin: 'maven'
 apply plugin: 'maven-publish'
+apply plugin: 'com.github.ben-manes.versions'
 
 allprojects {
-  repositories {
-    mavenCentral()
-  }
+    repositories {
+        mavenCentral()
+    }
 
-  apply from: rootProject.projectDir.absolutePath + '/gradle/tagging.gradle';
+    apply from: rootProject.projectDir.absolutePath + '/gradle/tagging.gradle';
 }
 
 println "Version ${getVersionName()}"

@@ -22,57 +22,33 @@ fun <T> expect(actual: T?): NumberMatcher<T> where T : Number, T : Comparable<T>
 
 class NumberMatcher<T>(actual: T?) : Matcher<T>(actual) where T : Number, T : Comparable<T> {
 
-    fun toBeSmallerThan(expected: T, reason: () -> Any = { "" }) {
+    fun toBeSmallerThan(expected: T, message: () -> Any = { "" }) {
         if (actual === null) {
-            fail(reason) {
-                expected("actual value") {
-                    to ("be smaller than") { expected }
-                    but("the actual value was null")
-                }
-            }
-            return
+            fail("Expected value to be smaller than $expected, but the actual value was null.", message)
         }
 
         if (actual >= expected ) {
-            fail(reason) {
-                expected(actual) { to("be smaller than") { expected } }
-            }
+            fail("Expected $actual to be smaller than $expected.", message)
         }
     }
 
-    fun toBeGreaterThan(expected: T, reason: () -> Any = { "" }) {
+    fun toBeGreaterThan(expected: T, message: () -> Any = { "" }) {
         if (actual === null) {
-            fail(reason) {
-                expected("actual value") {
-                    to ("be greater than") { expected }
-                    but("the actual value was null")
-                }
-            }
-            return
+            fail("Expected value to be greater than $expected, but the actual value was null.", message)
         }
 
         if (actual <= expected ) {
-            fail(reason) {
-                expected(actual) { to("be greater than") { expected } }
-            }
+            fail("Expected $actual to be greater than $expected.", message)
         }
     }
 
-    fun toBeIn(expected: ClosedRange<T>, reason: () -> Any = { "" }) {
+    fun toBeIn(expected: ClosedRange<T>, message: () -> Any = { "" }) {
         if (actual === null) {
-            fail(reason) {
-                expected("actual value") {
-                    to ("be in range") { expected }
-                    but("the actual value was null")
-                }
-            }
-            return
+            fail("Expected value to be in range $expected, but the actual value was null.", message)
         }
 
         if (actual !in expected ) {
-            fail(reason) {
-                expected(actual) { to("be in") { expected } }
-            }
+            fail("Expected $actual to be in range $expected.", message)
         }
     }
 }

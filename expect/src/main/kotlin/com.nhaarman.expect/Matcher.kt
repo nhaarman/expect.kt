@@ -20,45 +20,51 @@ fun <T : Any> expect(actual: T?): Matcher<T> {
     return Matcher(actual)
 }
 
-open class Matcher<T : Any>(val actual: T?) {
+open class Matcher<T : Any>(open val actual: T?) {
 
-    fun toBeReferentially(expected: T, reason: () -> Any = { "" }) {
+    fun toBeTheSameAs(expected: T, message: () -> Any = { "" }) {
         if (actual !== expected) {
-            fail (reason) {
-                expected(actual) { to("be") { expected } }
-            }
+            fail(expected = expected, actual = actual, message = message)
         }
     }
 
-    fun toNotBeReferentially(expected: T, reason: () -> Any = { "" }) {
+    @Deprecated("Use toBeTheSameAs instead.", ReplaceWith("toBeTheSameAs(expected, message)"))
+    fun toBeReferentially(expected: T, message: () -> Any = { "" }) = toBeTheSameAs(expected, message)
+
+    fun toNotBeTheSameAs(expected: T, message: () -> Any = { "" }) {
         if (actual === expected) {
-            fail(reason) {
-                expected(actual) { to("not be") { expected } }
-            }
+            fail("Expected $actual not to be $expected.", message)
         }
     }
 
-    open fun toBe(expected: T, reason: () -> Any = { "" }) {
+    @Deprecated("Use toNotBeTheSameAs instead.", ReplaceWith("toNotBeTheSameAs(expected, message)"))
+    fun toNotBeReferentially(expected: T, message: () -> Any = { "" }) = toNotBeTheSameAs(expected, message)
+
+    open fun toBe(expected: T, message: () -> Any = { "" }) {
         if (actual != expected ) {
-            fail (reason) {
-                expected(actual) { to("be equal to", expected) }
-            }
+            fail(expected = expected, actual = actual, message = message)
         }
     }
 
-    fun toBeNull(reason: () -> Any = { "" }) {
+    fun toBeNull(message: () -> Any = { "" }) {
         if (actual != null) {
-            fail (reason) {
-                expected(actual) { to("be", "null") }
-            }
+            fail("Expected $actual to be null.", message)
         }
     }
 
-    fun toNotBeNull(reason: () -> Any = { "" }) {
+    fun toNotBeNull(message: () -> Any = { "" }) {
         if (actual == null) {
-            fail (reason) {
-                expected(actual) { to("not be", "null") }
-            }
+            fail("Expected $actual to not be null.", message)
         }
+    }
+
+    inline fun <reified R : Any> toBeInstanceOf(): Unit = toBeInstanceOf<R>({})
+
+    inline fun <reified R : Any> toBeInstanceOf(capture: (R) -> Any?) {
+        if (actual !is R) {
+            fail("Expected $actual to be an instance of ${R::class.java.canonicalName}.")
+        }
+
+        capture(actual as R)
     }
 }

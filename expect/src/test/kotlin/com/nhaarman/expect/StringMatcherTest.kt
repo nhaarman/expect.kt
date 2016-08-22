@@ -43,14 +43,14 @@ class StringMatcherTest {
     }
 
     @Test
-    fun toBeEqualTo_withUnEqualStrings_fails() {
+    fun toBeEqualTo_withUnequalStrings_fails() {
         /* Given */
         val actual = "test"
         val expected = "nope"
         val matcher = StringMatcher(actual)
 
         /* Then */
-        expectErrorWithMessage("to be equal to").when_ {
+        expectErrorWithMessage("to be").when_ {
 
             matcher.toBe(expected)
         }

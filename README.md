@@ -30,7 +30,7 @@ val actual: String? = null
 expect(actual).toContain("test")
 
 java.lang.AssertionError: 
-	Expected actual value to contain "test", but the actual value was null.
+	Expected value to contain "test", but the actual value was null.
 ```
 
 ## Extensions
@@ -40,12 +40,7 @@ Due to Kotlin's [extensions](https://kotlinlang.org/docs/reference/extensions.ht
 ```kotlin
 fun StringMatcher.toBeEmpty() {
   if (actual?.isEmpty() != true) {
-    fail {
-      expected("actual value")  {
-        to("be empty")
-        but("actual value was \"$actual\"")
-      }
-    }
+    fail("Expected \"$actual\" to be empty.")
   }
 }
 ```
@@ -56,7 +51,7 @@ We can now easily use this function in our tests:
 expect("test").toBeEmpty()
 
 java.lang.AssertionError: 
-	Expected actual value to be empty, but actual value was "test".
+	Expected value to be empty, but actual value was "test".
 ```
 
 ## Custom matchers
@@ -74,9 +69,7 @@ class MyTypeMatcher(actual: MyType?) : Matcher<MyType>(actual) {
 
   fun toBeNamed(expected: String) {
     if(actual?.name != expected) {
-      fail {
-        expected(actual?.name) { to("be") { expected } }
-      }
+      fail("Expected ${actual?.name} to be $expected")
     }
   }
 }

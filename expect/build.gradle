@@ -2,50 +2,49 @@ apply plugin: 'java'
 apply plugin: 'kotlin'
 
 sourceSets {
-  main.java.srcDirs += 'src/main/kotlin'
+    main.java.srcDirs += 'src/main/kotlin'
 }
 
 dependencies {
-  compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-
-  testCompile group: 'junit', name: 'junit', version: '4.11'
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    testCompile "junit:junit:4.12"
 }
 
 task sourcesJar(type: Jar, dependsOn: classes) {
-  classifier = 'sources'
-  from sourceSets.main.kotlin.srcDirs
+    classifier = 'sources'
+    from sourceSets.main.kotlin.srcDirs
 }
 
 publishing {
-  publications {
-    expect(MavenPublication) {
-      from components.java
-      groupId 'com.nhaarman'
-      artifactId 'expect.kt'
-      version getVersionName()
+    publications {
+        expect(MavenPublication) {
+            from components.java
+            groupId 'com.nhaarman'
+            artifactId 'expect.kt'
+            version getVersionName()
 
-      artifact sourcesJar
+            artifact sourcesJar
+        }
     }
-  }
 }
 
 def bUser = hasProperty('bintray_user') ? bintray_user : System.getenv('BINTRAY_USER')
 def bKey = hasProperty('bintray_key') ? bintray_key : System.getenv('BINTRAY_KEY')
 
 bintray {
-  user = bUser
-  key = bKey
-  publications = ['expect']
-  pkg {
-    repo = 'maven'
-    name = 'Expect.kt'
-    desc = 'Test expectations in Kotlin'
-    licenses = ['Apache-2.0']
-    vcsUrl = 'https://github.com/nhaarman/expect.kt.git'
-    version {
-      name = getVersionName()
-      vcsTag = getVersionName()
-      released = new Date()
+    user = bUser
+    key = bKey
+    publications = ['expect']
+    pkg {
+        repo = 'maven'
+        name = 'Expect.kt'
+        desc = 'Test expectations in Kotlin'
+        licenses = ['Apache-2.0']
+        vcsUrl = 'https://github.com/nhaarman/expect.kt.git'
+        version {
+            name = getVersionName()
+            vcsTag = getVersionName()
+            released = new Date()
+        }
     }
-  }
 }
