@@ -62,7 +62,7 @@ class BooleanMatcherTest {
         val matcher = BooleanMatcher(null)
 
         /* Then */
-        expectErrorWithMessage("Expected actual value to be true, but the actual value was null.") on{
+        expectErrorWithMessage("Expected value to be true, but the actual value was null.") on{
 
             matcher.toHold()
         }
@@ -100,7 +100,7 @@ class BooleanMatcherTest {
         val matcher = BooleanMatcher(null)
 
         /* Then */
-        expectErrorWithMessage("Expected actual value to be false, but the actual value was null.") on{
+        expectErrorWithMessage("Expected value to be false, but the actual value was null.") on{
 
             matcher.notToHold()
         }

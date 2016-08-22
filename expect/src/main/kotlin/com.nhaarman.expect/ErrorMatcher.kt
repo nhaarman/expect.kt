@@ -32,24 +32,14 @@ class ErrorMatcher(val message: String) {
             function()
         } catch(e: Throwable) {
             if (e.message?.contains(message) == true) {
-                return;
+                return
             }
 
-            var actualStackTrace = stackTraceToString(e)
-
-            fail {
-                expected("an Error") {
-                    to("be thrown containing") { message }
-                    but("the following Error was thrown:", actualStackTrace)
-                }
-            }
+            val actualStackTrace = stackTraceToString(e)
+            fail("Expected an error to be thrown containing\n\t\"$message\"\nbut the following error was thrown\n\n\t$actualStackTrace", { null })
         }
 
-        fail {
-            expected("an Error") {
-                to("be thrown containing") { message }
-            }
-        }
+        fail("Expected an error to be thrown containing $message.", { null })
     }
 
     private fun stackTraceToString(t: Throwable): String {

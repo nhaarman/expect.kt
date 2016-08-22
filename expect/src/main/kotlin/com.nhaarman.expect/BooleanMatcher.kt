@@ -22,42 +22,23 @@ fun expect(actual: Boolean?): BooleanMatcher {
 
 class BooleanMatcher(actual: Boolean?) : Matcher<Boolean>(actual) {
 
-    fun toHold(reason: () -> Any = { "" }) {
+    fun toHold(message: () -> Any? = { "" }) {
         if (actual == null) {
-            fail(reason) {
-                expected("actual value") {
-                    to("be") { true }
-                    but("the actual value was null")
-                }
-            }
-
-            return
+            fail("Expected value to be true, but the actual value was null.", message)
         }
 
         if (actual != true ) {
-            fail(reason) {
-                expected(actual) { to("be") { true } }
-            }
+            fail("Expected $actual to be true.", message)
         }
     }
 
-    fun notToHold(reason: () -> Any = { "" }) {
+    fun notToHold(message: () -> Any = { "" }) {
         if (actual == null) {
-            fail(reason) {
-                expected("actual value") {
-                    to("be") { false }
-                    but("the actual value was null")
-                }
-            }
-
-            return
+            fail("Expected value to be false, but the actual value was null.", message)
         }
 
         if (actual != false ) {
-            fail(reason) {
-                expected(actual) { to("be") { false } }
-            }
+            fail("Expected $actual to be false.", message)
         }
     }
-
 }

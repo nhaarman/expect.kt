@@ -145,7 +145,7 @@ class NumberMatcherTest {
         val matcher = NumberMatcher(1.0)
 
         /* Then */
-        expectErrorWithMessage("to be equal to").on {
+        expectErrorWithMessage("to be").on {
 
             matcher.toBe(2.0)
         }
@@ -200,7 +200,7 @@ class NumberMatcherTest {
         val matcher = NumberMatcher<Double>(null)
 
         /* Then */
-        expectErrorWithMessage("Expected actual value to be smaller than 1.0, but the actual value was null.") on{
+        expectErrorWithMessage("Expected value to be smaller than 1.0, but the actual value was null.") on{
 
             matcher.toBeSmallerThan(expected)
         }
@@ -255,7 +255,7 @@ class NumberMatcherTest {
         val matcher = NumberMatcher<Double>(null)
 
         /* Then */
-        expectErrorWithMessage("Expected actual value to be greater than 1.0, but the actual value was null.") on{
+        expectErrorWithMessage("Expected value to be greater than 1.0, but the actual value was null.") on{
 
             matcher.toBeGreaterThan(expected)
         }
@@ -283,7 +283,7 @@ class NumberMatcherTest {
         val matcher = NumberMatcher(actual)
 
         /* When */
-        expectErrorWithMessage("Expected 4 to be in [0 .. 2].") on {
+        expectErrorWithMessage("Expected 4 to be in range 0..2.") on {
 
             matcher.toBeIn(expected)
         }

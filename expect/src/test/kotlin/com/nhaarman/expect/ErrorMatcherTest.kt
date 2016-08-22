@@ -54,7 +54,7 @@ class ErrorMatcherTest {
             return
         }
 
-        fail({ "Expected an error to be thrown" })
+        fail("Expected an error to be thrown")
     }
 
     @Test
@@ -67,13 +67,15 @@ class ErrorMatcherTest {
             matcher.on {
                 throw Error("nope")
             }
-            fail({ "Expected an error to be thrown" })
+            fail("Expected an error to be thrown")
         } catch(e: Error) {
-            if (e.message?.contains("but the following Error was thrown") == true) {
+            val message = e.message
+            val contains = message?.contains("but the following error was thrown")
+            if (contains == true) {
                 return
             }
 
-            fail({ "Expected error with wrong error message to be thrown" })
+            fail("Expected error with wrong error message to be thrown, but $e was thrown.")
         }
     }
 
@@ -99,7 +101,7 @@ class ErrorMatcherTest {
         /* When */
         try {
             matcher.when_ {}
-            fail({ "Expected an error to be thrown" })
+            fail("Expected an error to be thrown")
         } catch(e: Error) {
             awesome()
         }
@@ -115,13 +117,13 @@ class ErrorMatcherTest {
             matcher.when_ {
                 throw Error("nope")
             }
-            fail({ "Expected an error to be thrown" })
+            fail("Expected an error to be thrown")
         } catch(e: Error) {
-            if (e.message?.contains("but the following Error was thrown") == true) {
+            if (e.message?.contains("but the following error was thrown") == true) {
                 return
             }
 
-            fail({ "Expected error with wrong error message to be thrown" })
+            fail("Expected error with wrong error message to be thrown")
         }
     }
 }
