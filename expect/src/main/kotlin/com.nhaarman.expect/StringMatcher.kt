@@ -22,22 +22,13 @@ fun expect(actual: String?): StringMatcher {
 
 class StringMatcher(actual: String?) : Matcher<String>(actual) {
 
-    fun toContain(expected: String, reason: () -> Any = { "" }) {
+    fun toContain(expected: String, message: () -> Any = { "" }) {
         if (actual == null) {
-            fail(reason) {
-                expected("actual value") {
-                    to("contain", expected)
-                    but("the actual value was null")
-                }
-            }
-
-            return
+            fail("Expected value to contain $expected, but the actual value was null.", message)
         }
 
         if (!actual.contains(expected)) {
-            fail(reason) {
-                expected(actual) { to("contain") { expected } }
-            }
+            fail("Expected $actual to contain $expected.", message)
         }
     }
 }

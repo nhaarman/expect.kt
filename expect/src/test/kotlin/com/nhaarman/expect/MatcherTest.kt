@@ -70,26 +70,26 @@ class MatcherTest {
     }
 
     @Test
-    fun toNotBe_withEqualReferences_fails() {
+    fun toNotBeTheSame_withEqualReferences_fails() {
         /* Given */
         val a = Any()
         val matcher = Matcher(a)
 
         /* Then */
-        expectErrorWithMessage("to not be") when_ {
-            matcher.toNotBeReferentially(a)
+        expectErrorWithMessage("not to be") on {
+            matcher.toNotBeTheSameAs(a)
         }
     }
 
     @Test
-    fun toNotBe_withUnequalReferences_accepts() {
+    fun toNotBeTheSame_withUnequalReferences_accepts() {
         /* Given */
         val actual = Data(1)
         val expected = Data(1)
         val matcher = Matcher(actual)
 
         /* Then */
-        matcher.toNotBeReferentially(expected)
+        matcher.toNotBeTheSameAs(expected)
 
         /* Then */
         awesome()
@@ -130,22 +130,20 @@ class MatcherTest {
         val matcher = Matcher(first)
 
         /* Then */
-        expectErrorWithMessage("to be equal to").when_ {
-
+        expectErrorWithMessage("to be") on {
             matcher.toBe(second)
         }
     }
 
     @Test
-    fun toBeEqualTo_withUnEqualItems_isNotAccepted() {
+    fun toBe_withUnequalItems_isNotAccepted() {
         /* Given */
         val first = 1
         val second = 2
         val matcher = Matcher(first)
 
         /* Then */
-        expectErrorWithMessage("to be equal to").when_ {
-
+        expectErrorWithMessage("to be") on {
             matcher.toBe(second)
         }
     }
@@ -156,8 +154,7 @@ class MatcherTest {
         val matcher = Matcher<Int>(null)
 
         /* Then */
-        expectErrorWithMessage("to be equal to").when_ {
-
+        expectErrorWithMessage("to be").when_ {
             matcher.toBe(1)
         }
     }
@@ -224,7 +221,11 @@ class MatcherTest {
                 return false
             }
         }
+
+        override fun toString() = "Data(value=$value)"
     }
 
-    class Subdata(value: Int) : Data(value)
+    class Subdata(value: Int) : Data(value) {
+        override fun toString() = "Subdata(value=$value)"
+    }
 }
