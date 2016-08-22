@@ -209,6 +209,42 @@ class MatcherTest {
         awesome()
     }
 
+    @Test
+    fun toBeInstanceOf_withSameClass_accepts() {
+        /* Given */
+        val matcher = Matcher(3)
+
+        /* When */
+        matcher.toBeInstanceOf<Int>()
+
+        /* Then */
+        awesome()
+    }
+
+    @Test
+    fun toBeInstanceOf_withSubclass_accepts() {
+        /* Given */
+        val matcher = Matcher(Subdata(4))
+
+        /* When */
+        matcher.toBeInstanceOf<Data>()
+
+        /* Then */
+        awesome()
+    }
+
+    @Test
+    fun toBeInstanceOf_notAnInstanceOf_fails() {
+        /* Given */
+        val matcher = Matcher(Data(4))
+
+        /* Then */
+        expectErrorWithMessage("to be an instance of") on {
+            /* When */
+            matcher.toBeInstanceOf<Subdata>()
+        }
+    }
+
     open class Data(val value: Int) {
 
         override fun equals(other: Any?): Boolean {
@@ -220,6 +256,10 @@ class MatcherTest {
             } else {
                 return false
             }
+        }
+
+        override fun hashCode(): Int {
+            return value
         }
 
         override fun toString() = "Data(value=$value)"

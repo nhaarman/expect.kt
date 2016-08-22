@@ -57,4 +57,14 @@ open class Matcher<T : Any>(open val actual: T?) {
             fail("Expected $actual to not be null.", message)
         }
     }
+
+    inline fun <reified R : Any> toBeInstanceOf(): Unit = toBeInstanceOf<R>({})
+
+    inline fun <reified R : Any> toBeInstanceOf(capture: (R) -> Any?) {
+        if (actual !is R) {
+            fail("Expected $actual to be an instance of ${R::class.java.canonicalName}.")
+        }
+
+        capture(actual as R)
+    }
 }
