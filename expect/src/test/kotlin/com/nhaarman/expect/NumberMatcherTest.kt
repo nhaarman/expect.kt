@@ -145,7 +145,7 @@ class NumberMatcherTest {
         val matcher = NumberMatcher(1.0)
 
         /* Then */
-        expectErrorWithMessage("to be").on {
+        expectErrorWithMessage("but was").on {
 
             matcher.toBe(2.0)
         }

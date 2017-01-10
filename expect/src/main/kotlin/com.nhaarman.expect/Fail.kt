@@ -28,5 +28,5 @@ inline fun fail(reason: String, message: () -> Any?): Nothing {
 }
 
 inline fun fail(expected: Any?, actual: Any?, message: () -> Any?): Nothing {
-    throw AssertionError("Expected $actual to be $expected.\n\t${message()}")
+    throw AssertionError("Expected: $actual but was: $expected\n\t${message()}")
 }

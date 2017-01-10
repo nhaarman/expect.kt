@@ -63,7 +63,7 @@ class MatcherTest {
         val matcher = Matcher(actual)
 
         /* Then */
-        expectErrorWithMessage("to be") when_ {
+        expectErrorWithMessage("but was") when_ {
 
             matcher.toBeTheSameAs(expected)
         }
@@ -130,7 +130,7 @@ class MatcherTest {
         val matcher = Matcher(first)
 
         /* Then */
-        expectErrorWithMessage("to be") on {
+        expectErrorWithMessage("but was") on {
             matcher.toBe(second)
         }
     }
@@ -143,7 +143,7 @@ class MatcherTest {
         val matcher = Matcher(first)
 
         /* Then */
-        expectErrorWithMessage("to be") on {
+        expectErrorWithMessage("but was") on {
             matcher.toBe(second)
         }
     }
@@ -154,7 +154,7 @@ class MatcherTest {
         val matcher = Matcher<Int>(null)
 
         /* Then */
-        expectErrorWithMessage("to be").when_ {
+        expectErrorWithMessage("but was").when_ {
             matcher.toBe(1)
         }
     }
