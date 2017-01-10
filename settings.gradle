@@ -1,3 +1,3 @@
-rootProject.name = 'expect.kt'
+rootProject.name = 'expect'
 
-include ':expect'
+include ':expect.kt'
