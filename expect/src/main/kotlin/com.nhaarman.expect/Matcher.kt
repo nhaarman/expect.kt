@@ -28,17 +28,11 @@ open class Matcher<T : Any>(open val actual: T?) {
         }
     }
 
-    @Deprecated("Use toBeTheSameAs instead.", ReplaceWith("toBeTheSameAs(expected, message)"))
-    fun toBeReferentially(expected: T, message: () -> Any = { "" }) = toBeTheSameAs(expected, message)
-
     fun toNotBeTheSameAs(expected: T, message: () -> Any = { "" }) {
         if (actual === expected) {
             fail("Expected $actual not to be $expected.", message)
         }
     }
-
-    @Deprecated("Use toNotBeTheSameAs instead.", ReplaceWith("toNotBeTheSameAs(expected, message)"))
-    fun toNotBeReferentially(expected: T, message: () -> Any = { "" }) = toNotBeTheSameAs(expected, message)
 
     open fun toBe(expected: T, message: () -> Any = { "" }) {
         if (actual != expected ) {
