@@ -70,7 +70,7 @@ bintray {
 
     pkg {
         repo = 'maven'
-        name = 'Mockito-Kotlin'
+        name = 'Expect.kt'
         licenses = ['MIT']
         vcsUrl = 'https://github.com/nhaarman/expect.kt.git'
 
