@@ -1,0 +1,92 @@
+apply plugin: 'signing'
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'com.github.dcendents.android-maven'
+
+group = 'com.nhaarman'
+version = rootProject.ext.versionName
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from 'build/javadoc'
+}
+
+task sourcesJar(type: Jar) {
+    from sourceSets.main.allSource
+    classifier = 'sources'
+}
+
+artifacts {
+    archives jar
+
+    archives javadocJar
+    archives sourcesJar
+}
+
+signing {
+    sign configurations.archives
+}
+
+install {
+    repositories.mavenInstaller {
+        pom {
+            project {
+                name 'Expect.kt'
+                packaging 'jar'
+                description 'Readable test assertions in Kotlin.'
+                url 'https://github.com/nhaarman/expect.kt'
+
+                scm {
+                    url 'scm:git@github.com:nhaarman/expect.kt.git'
+                    connection 'scm:git@github.com:nhaarman/expect.kt.git'
+                    developerConnection 'scm:git@github.com:nhaarman/expect.kt.git'
+                }
+
+                licenses {
+                    license {
+                        name 'Apache-2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                        distribution 'repo'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id 'nhaarman'
+                        name 'Niek Haarman'
+                    }
+                }
+            }
+        }
+    }
+}
+
+bintray {
+    user = hasProperty('bintray_username') ? bintray_username : System.getenv('BINTRAY_USER')
+    key = hasProperty('bintray_key') ? bintray_key : System.getenv('BINTRAY_KEY')
+
+    configurations = ['archives']
+
+    publish = true
+
+    pkg {
+        repo = 'maven'
+        name = 'Mockito-Kotlin'
+        licenses = ['MIT']
+        vcsUrl = 'https://github.com/nhaarman/expect.kt.git'
+
+        version {
+            name = versionName
+
+            gpg {
+                sign = true
+            }
+
+            mavenCentralSync {
+                sync = true
+                user = hasProperty('sonatype_username') ? sonatype_username : System.getenv('SONATYPE_USERNAME')
+                password = hasProperty('sonatype_password') ? sonatype_password : System.getenv('SONATYPE_PASSWORD')
+                close = '1'
+            }
+        }
+    }
+}

@@ -21,14 +21,14 @@ import org.junit.Test
 class MatcherTest {
 
     @Test
-    fun example_toBe() {
+    fun example_toBeTheSameAs() {
         val a = Any()
 
-        expect(a).toBeReferentially(a)
+        expect(a).toBeTheSameAs(a)
     }
 
     @Test
-    fun example_toBeEqualTo() {
+    fun example_toBe() {
         val actual = Data(1)
         val expected = Data(1)
 
@@ -43,34 +43,34 @@ class MatcherTest {
     }
 
     @Test
-    fun toBe_withEqualReferences_accepts() {
+    fun toBeTheSameAs_withEqualReferences_accepts() {
         /* Given */
         val a = Any()
         val matcher = Matcher(a)
 
         /* When */
-        matcher.toBeReferentially(a)
+        matcher.toBeTheSameAs(a)
 
         /* Then */
         awesome()
     }
 
     @Test
-    fun toBe_withUnequalReferences_fails() {
+    fun toBeTheSameAs_withUnequalReferences_fails() {
         /* Given */
         val actual = Data(1)
         val expected = Data(1)
         val matcher = Matcher(actual)
 
         /* Then */
-        expectErrorWithMessage("to be") when_ {
+        expectErrorWithMessage("but was") when_ {
 
-            matcher.toBeReferentially(expected)
+            matcher.toBeTheSameAs(expected)
         }
     }
 
     @Test
-    fun toNotBeTheSame_withEqualReferences_fails() {
+    fun toNotBeTheSameAs_withEqualReferences_fails() {
         /* Given */
         val a = Any()
         val matcher = Matcher(a)
@@ -82,7 +82,7 @@ class MatcherTest {
     }
 
     @Test
-    fun toNotBeTheSame_withUnequalReferences_accepts() {
+    fun toNotBeTheSameAs_withUnequalReferences_accepts() {
         /* Given */
         val actual = Data(1)
         val expected = Data(1)
@@ -96,7 +96,7 @@ class MatcherTest {
     }
 
     @Test
-    fun toBeEqualTo_withEqualReferences_areAccepted() {
+    fun toBe_withEqualReferences_areAccepted() {
         /* Given */
         val data = Data(1)
         val matcher = Matcher(data)
@@ -109,7 +109,7 @@ class MatcherTest {
     }
 
     @Test
-    fun toBeEqualTo_withEqualItems_areAccepted() {
+    fun toBe_withEqualItems_areAccepted() {
         /* Given */
         val first = Data(1)
         val second = Data(1)
@@ -123,14 +123,14 @@ class MatcherTest {
     }
 
     @Test
-    fun toBeEqualTo_withSubtype_isNotAccepted() {
+    fun toBe_withSubtype_isNotAccepted() {
         /* Given */
         val first = Data(1)
         val second = Subdata(1)
         val matcher = Matcher(first)
 
         /* Then */
-        expectErrorWithMessage("to be") on {
+        expectErrorWithMessage("but was") on {
             matcher.toBe(second)
         }
     }
@@ -143,18 +143,18 @@ class MatcherTest {
         val matcher = Matcher(first)
 
         /* Then */
-        expectErrorWithMessage("to be") on {
+        expectErrorWithMessage("but was") on {
             matcher.toBe(second)
         }
     }
 
     @Test
-    fun toBeEqualTo_withNullValue_isNotAccepted() {
+    fun toBe_withNullValue_isNotAccepted() {
         /* Given */
         val matcher = Matcher<Int>(null)
 
         /* Then */
-        expectErrorWithMessage("to be").when_ {
+        expectErrorWithMessage("but was").when_ {
             matcher.toBe(1)
         }
     }

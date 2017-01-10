@@ -50,7 +50,7 @@ class StringMatcherTest {
         val matcher = StringMatcher(actual)
 
         /* Then */
-        expectErrorWithMessage("to be").when_ {
+        expectErrorWithMessage("but was").when_ {
 
             matcher.toBe(expected)
         }
