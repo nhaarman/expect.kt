@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="Production classes" pattern="src:*..*&amp;&amp;(file:*.kt||file:*.java)" />
+</component>

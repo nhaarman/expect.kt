@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 Niek Haarman
+ * Copyright 2017 Niek Haarman
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,7 +27,7 @@ class BooleanMatcher(actual: Boolean?) : Matcher<Boolean>(actual) {
             fail("Expected value to be true, but the actual value was null.", message)
         }
 
-        if (actual != true ) {
+        if (actual != true) {
             fail("Expected $actual to be true.", message)
         }
     }
@@ -37,7 +37,7 @@ class BooleanMatcher(actual: Boolean?) : Matcher<Boolean>(actual) {
             fail("Expected value to be false, but the actual value was null.", message)
         }
 
-        if (actual != false ) {
+        if (actual != false) {
             fail("Expected $actual to be false.", message)
         }
     }
