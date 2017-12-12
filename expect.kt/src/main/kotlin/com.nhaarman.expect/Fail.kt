@@ -19,9 +19,9 @@ package com.nhaarman.expect
 
 fun fail(reason: String): Nothing = throw AssertionError(reason)
 
-inline fun fail(reason: String, message: () -> Any?): Nothing {
+fun fail(reason: String, message: (() -> Any?)? = null): Nothing {
     var m = reason
-    message()?.let {
+    message?.invoke()?.let {
         m = "$reason\n$it"
     }
     throw AssertionError(m)
