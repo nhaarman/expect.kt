@@ -22,31 +22,31 @@ fun <T : Any> expect(actual: T?): Matcher<T> {
 
 open class Matcher<T : Any>(open val actual: T?) {
 
-    fun toBeTheSameAs(expected: T, message: () -> Any = { "" }) {
+    fun toBeTheSameAs(expected: T, message: (() -> Any?)? = null) {
         if (actual !== expected) {
             fail(expected = expected, actual = actual, message = message)
         }
     }
 
-    fun toNotBeTheSameAs(expected: T, message: () -> Any = { "" }) {
+    fun toNotBeTheSameAs(expected: T, message: (() -> Any?)? = null) {
         if (actual === expected) {
             fail("Expected $actual not to be $expected.", message)
         }
     }
 
-    open fun toBe(expected: T, message: () -> Any = { "" }) {
-        if (actual != expected ) {
+    open fun toBe(expected: T, message: (() -> Any?)? = null) {
+        if (actual != expected) {
             fail(expected = expected, actual = actual, message = message)
         }
     }
 
-    fun toBeNull(message: () -> Any = { "" }) {
+    fun toBeNull(message: (() -> Any?)? = null) {
         if (actual != null) {
             fail("Expected $actual to be null.", message)
         }
     }
 
-    fun toNotBeNull(message: () -> Any = { "" }) {
+    fun toNotBeNull(message: (() -> Any?)? = null) {
         if (actual == null) {
             fail("Expected $actual to not be null.", message)
         }

@@ -22,7 +22,7 @@ fun expect(actual: Boolean?): BooleanMatcher {
 
 class BooleanMatcher(actual: Boolean?) : Matcher<Boolean>(actual) {
 
-    fun toHold(message: () -> Any? = { "" }) {
+    fun toHold(message: (() -> Any?)? = null) {
         if (actual == null) {
             fail("Expected value to be true, but the actual value was null.", message)
         }
@@ -32,7 +32,7 @@ class BooleanMatcher(actual: Boolean?) : Matcher<Boolean>(actual) {
         }
     }
 
-    fun notToHold(message: () -> Any = { "" }) {
+    fun notToHold(message: (() -> Any?)? = null) {
         if (actual == null) {
             fail("Expected value to be false, but the actual value was null.", message)
         }

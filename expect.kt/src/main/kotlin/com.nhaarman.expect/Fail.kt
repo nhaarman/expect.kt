@@ -27,6 +27,8 @@ inline fun fail(reason: String, message: () -> Any?): Nothing {
     throw AssertionError(m)
 }
 
-inline fun fail(expected: Any?, actual: Any?, message: () -> Any?): Nothing {
-    throw AssertionError("Expected: $expected but was: $actual\n\t${message()}")
+fun fail(expected: Any?, actual: Any?, message: (() -> Any?)? = null): Nothing {
+    val m = message?.invoke()?.let { "$it\n" } ?: ""
+
+    throw AssertionError("${m}Expected: $expected but was: $actual\n")
 }

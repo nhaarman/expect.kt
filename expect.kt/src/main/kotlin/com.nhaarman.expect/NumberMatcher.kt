@@ -22,7 +22,7 @@ fun <T> expect(actual: T?): NumberMatcher<T> where T : Number, T : Comparable<T>
 
 class NumberMatcher<T>(actual: T?) : Matcher<T>(actual) where T : Number, T : Comparable<T> {
 
-    fun toBeSmallerThan(expected: T, message: () -> Any = { "" }) {
+    fun toBeSmallerThan(expected: T, message: (() -> Any?)? = null) {
         if (actual === null) {
             fail("Expected value to be smaller than $expected, but the actual value was null.", message)
         }
@@ -32,7 +32,7 @@ class NumberMatcher<T>(actual: T?) : Matcher<T>(actual) where T : Number, T : Co
         }
     }
 
-    fun toBeGreaterThan(expected: T, message: () -> Any = { "" }) {
+    fun toBeGreaterThan(expected: T, message: (() -> Any?)? = null) {
         if (actual === null) {
             fail("Expected value to be greater than $expected, but the actual value was null.", message)
         }
@@ -42,7 +42,7 @@ class NumberMatcher<T>(actual: T?) : Matcher<T>(actual) where T : Number, T : Co
         }
     }
 
-    fun toBeIn(expected: ClosedRange<T>, message: () -> Any = { "" }) {
+    fun toBeIn(expected: ClosedRange<T>, message: (() -> Any?)? = null) {
         if (actual === null) {
             fail("Expected value to be in range $expected, but the actual value was null.", message)
         }
