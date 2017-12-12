@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 Niek Haarman
+ * Copyright 2017 Niek Haarman
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,22 +22,22 @@ fun expect(actual: Boolean?): BooleanMatcher {
 
 class BooleanMatcher(actual: Boolean?) : Matcher<Boolean>(actual) {
 
-    fun toHold(message: () -> Any? = { "" }) {
+    fun toHold(message: (() -> Any?)? = null) {
         if (actual == null) {
             fail("Expected value to be true, but the actual value was null.", message)
         }
 
-        if (actual != true ) {
+        if (actual != true) {
             fail("Expected $actual to be true.", message)
         }
     }
 
-    fun notToHold(message: () -> Any = { "" }) {
+    fun notToHold(message: (() -> Any?)? = null) {
         if (actual == null) {
             fail("Expected value to be false, but the actual value was null.", message)
         }
 
-        if (actual != false ) {
+        if (actual != false) {
             fail("Expected $actual to be false.", message)
         }
     }

@@ -1,11 +1,11 @@
 **/bin/*
 **/gen/*
 **/build/*
+**/out/
 **/.idea/*
 **/*.iml
 .gradle
 /local.properties
-/.idea/workspace.xml
 .DS_Store
 .metadata/*
 **.hprof
@@ -15,3 +15,7 @@
 
 *.orig
 *.exec
+
+!/.idea/copyright/
+!/.idea/codeStyleSettings.xml
+!/.idea/scopes/

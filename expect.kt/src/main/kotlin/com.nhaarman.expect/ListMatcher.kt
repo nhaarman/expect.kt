@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 Niek Haarman
+ * Copyright 2017 Niek Haarman
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@ fun <T> expect(actual: List<T>?): ListMatcher<T> {
 
 class ListMatcher<T>(override val actual: List<T>?) : Matcher<List<T>>(actual) {
 
-    fun toBeEmpty(message: () -> Any = { "" }) {
+    fun toBeEmpty(message: (() -> Any?)? = null) {
         if (actual == null) {
             fail("Expected value to be empty, but the actual value was null.", message)
         }
@@ -32,7 +32,7 @@ class ListMatcher<T>(override val actual: List<T>?) : Matcher<List<T>>(actual) {
         }
     }
 
-    fun toHaveSize(size: Int, message: () -> Any = { "" }) {
+    fun toHaveSize(size: Int, message: (() -> Any?)? = null) {
         if (actual == null) {
             fail("Expected value to have size $size, but the actual value was null.", message)
         }
@@ -42,7 +42,7 @@ class ListMatcher<T>(override val actual: List<T>?) : Matcher<List<T>>(actual) {
         }
     }
 
-    fun toContain(expected: T, message: () -> Any = { "" }) {
+    fun toContain(expected: T, message: (() -> Any?)? = null) {
         if (actual == null) {
             fail("Expected value to contain $expected, but the actual value was null.", message)
         }

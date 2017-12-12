@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 Niek Haarman
+ * Copyright 2017 Niek Haarman
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@ fun expect(actual: String?): StringMatcher {
 
 class StringMatcher(actual: String?) : Matcher<String>(actual) {
 
-    fun toContain(expected: String, message: () -> Any = { "" }) {
+    fun toContain(expected: String, message: (() -> Any?)? = null) {
         if (actual == null) {
             fail("Expected value to contain $expected, but the actual value was null.", message)
         }

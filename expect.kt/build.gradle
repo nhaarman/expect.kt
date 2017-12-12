@@ -3,7 +3,7 @@ apply from: './publishing.gradle'
 apply plugin: 'org.jetbrains.dokka'
 
 buildscript {
-    ext.kotlin_version = '1.0.6'
+    ext.kotlin_version = '1.0.7'
 
     repositories {
         mavenCentral()
@@ -25,6 +25,8 @@ repositories {
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compile 'io.reactivex.rxjava2:rxjava:2.1.7'
+
     testCompile "junit:junit:4.12"
 }
 

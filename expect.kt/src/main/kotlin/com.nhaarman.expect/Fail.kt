@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 Niek Haarman
+ * Copyright 2017 Niek Haarman
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,16 +17,18 @@
 package com.nhaarman.expect
 
 
-inline fun fail(reason: String): Nothing = throw AssertionError(reason)
+fun fail(reason: String): Nothing = throw AssertionError(reason)
 
-inline fun fail(reason: String, message: () -> Any?): Nothing {
+fun fail(reason: String, message: (() -> Any?)? = null): Nothing {
     var m = reason
-    message()?.let {
+    message?.invoke()?.let {
         m = "$reason\n$it"
     }
     throw AssertionError(m)
 }
 
-inline fun fail(expected: Any?, actual: Any?, message: () -> Any?): Nothing {
-    throw AssertionError("Expected: $expected but was: $actual\n\t${message()}")
+fun fail(expected: Any?, actual: Any?, message: (() -> Any?)? = null): Nothing {
+    val m = message?.invoke()?.let { "$it\n" } ?: ""
+
+    throw AssertionError("${m}Expected: $expected but was: $actual\n")
 }
