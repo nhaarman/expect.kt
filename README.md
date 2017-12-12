@@ -80,7 +80,7 @@ class MyTypeMatcher(actual: MyType?) : Matcher<MyType>(actual) {
 To use Expect.kt in your gradle test builds, add the following to your `build.gradle`:
 
 ```groovy
-testCompile 'com.nhaarman:expect.kt:x.x.x`
+testCompile 'com.nhaarman:expect.kt:x.x.x'
 ```
 
 ## License
