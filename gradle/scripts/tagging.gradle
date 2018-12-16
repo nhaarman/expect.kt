@@ -1,22 +1,81 @@
-new ByteArrayOutputStream().withStream { os ->
+ext.git = [
 
-  exec {
-    commandLine 'git', 'describe', '--abbrev=0', '--tags'
-    standardOutput = os
-  }
+        versionName            : {
+          def baseTag = git.latestTag() ?: "0.0.0"
+          def commitCount = git.numberOfCommitsSinceTag(baseTag)
 
-  String tag = os.toString().trim();
-  if (tag.length() == 0) {
-    tag = "0.0.0"
-  } else if (tag.indexOf('-') != -1 && tag.length() > tag.indexOf('-') + 1 && tag.charAt(tag.indexOf('-') + 1).isDigit()) {
-    tag = tag.substring(0, tag.indexOf('-'));
-  }
+          def result = baseTag
 
-  ext.versionName = tag;
+          if (commitCount != 0 || git.isDirty() || baseTag.startsWith("0.0.")) {
+            result = result.replace("-SNAPSHOT", "")
+            if (commitCount != 0 || git.isDirty()) {
+              result += ".$commitCount"
+            }
+            result += "-SNAPSHOT"
+          }
 
-  if (isRelease == 'false') {
-    int lastNumber = Integer.parseInt(tag.substring(tag.size() - 1))
-    ext.versionName = tag.substring(0, tag.size() - 1) + (lastNumber + 1) + "-SNAPSHOT";
-  }
-}
+          return result
+        },
 
+        commitCount            : {
+          try {
+            def stdout = new ByteArrayOutputStream()
+            exec {
+              commandLine 'git', 'log', '--oneline'
+              standardOutput = stdout
+            }
+
+            def commitCount = stdout.toString().split("\n").length
+            return commitCount
+          } catch (ignored) {
+            return 0
+          }
+        },
+
+        latestTag              : {
+          try {
+            def stdout = new ByteArrayOutputStream()
+            exec {
+              commandLine 'git', 'describe', '--abbrev=0'
+              standardOutput = stdout
+            }
+
+            def tag = stdout.toString().split("\n").first()
+            return tag
+          } catch (ignored) {
+            return "0.0.0"
+          }
+        },
+
+        numberOfCommitsSinceTag: { tagName ->
+          try {
+            def stdout = new ByteArrayOutputStream()
+            exec {
+              commandLine 'git', 'log', "${tagName}..HEAD", '--oneline'
+              standardOutput = stdout
+            }
+
+            def result = stdout.toString().trim()
+            if (result.empty) return 0
+
+            def commitCount = result.split("\n").length
+            return commitCount
+          } catch (ignored) {
+            return -1
+          }
+        },
+
+        isDirty                : {
+          try {
+            def stdout = new ByteArrayOutputStream()
+            exec {
+              commandLine 'git', 'describe', '--dirty'
+              standardOutput = stdout
+            }
+
+            return stdout.toString().split("\n").first().contains('dirty')
+          } catch (ignored) {
+            return false
+          }
+        }
+]

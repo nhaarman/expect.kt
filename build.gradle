@@ -4,4 +4,4 @@ plugins {
 
 apply from: 'gradle/scripts/tagging.gradle'
 
-println ext.versionName
+println git.versionName()

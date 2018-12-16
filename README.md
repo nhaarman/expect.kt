@@ -77,6 +77,7 @@ class MyTypeMatcher(actual: MyType?) : Matcher<MyType>(actual) {
 
 ## Setup
 
+Expect.kt is hosted on Maven Central.
 To use Expect.kt in your gradle test builds, add the following to your `build.gradle`:
 
 ```groovy
