@@ -75,6 +75,53 @@ class MyTypeMatcher(actual: MyType?) : Matcher<MyType>(actual) {
 }
 ```
 
+## Available Matchers
+
+### Generic Matchers
+
+expect(actual).toBe(object)
+expect(actual).toBeTheSameAs(object)
+expect(actual).toNotBeTheSameAs(object)
+expect(actual).toBeNull()
+expect(actual).toNotBeNull()
+expect(actual).toBeInstanceOf<Type>()
+
+### Boolean Matchers
+
+expect(actual).toHold()
+expect(actual).notToHold()
+
+### Error Matchers
+
+expectErrorWithMessage(message).when_ { <something throws> }
+expectErrorWithMessage(message).on { <something throws> }
+
+### List Matchers
+
+expect(actual).toBeEmpty()
+expect(actual).toContain(object)
+expect(actual).toHaveSize(size)
+
+### Number Matchers
+
+expect(actual).toBe(number)
+expect(actual).toBeSmallerThan(number)
+expect(actual).toBeGreaterThan(number)
+expect(actual).toBeIn(number range)
+
+### String Matchers
+
+expect(actual).toBe(string)
+expect(actual).toContain(string)
+
+### Observer Matchers
+
+expect(observer).toHaveNoValues()
+expect(observer).toHaveValueCount(number)
+expect(observer).toHaveValues(value[, value, ...])
+expect(observer).toBeCompleted()
+expect(observer).toHaveError(exception)
+
 ## Setup
 
 Expect.kt is hosted on Maven Central.
