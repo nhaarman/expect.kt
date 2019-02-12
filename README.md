@@ -1,4 +1,5 @@
 # Expect.kt
+[![Maven Central](https://img.shields.io/maven-central/v/com.nhaarman/expect.kt.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22com.nhaarman%22%20AND%20a:%22expect.kt%22)
 
 Expect.kt allows you to write test assertions in a readable way:
 
