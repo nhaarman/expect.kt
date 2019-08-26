@@ -20,14 +20,18 @@ fun <T> expect(actual: List<T>?): ListMatcher<T> {
     return ListMatcher(actual)
 }
 
-class ListMatcher<T>(override val actual: List<T>?) : Matcher<List<T>>(actual) {
+fun <T> expect(actual: Set<T>?): SetMatcher<T> {
+    return SetMatcher(actual)
+}
+
+abstract class CollectionMatcher<T>(override val actual: Collection<T>?) : Matcher<Collection<T>>(actual) {
 
     fun toBeEmpty(message: (() -> Any?)? = null) {
         if (actual == null) {
             fail("Expected value to be empty, but the actual value was null.", message)
         }
 
-        if (actual.isNotEmpty()) {
+        if (actual!!.isNotEmpty()) {
             fail("Expected $actual to be empty.", message)
         }
     }
@@ -37,8 +41,8 @@ class ListMatcher<T>(override val actual: List<T>?) : Matcher<List<T>>(actual) {
             fail("Expected value to have size $size, but the actual value was null.", message)
         }
 
-        if (actual.size != size) {
-            fail("Expected $actual to have size $size, but the actual size was ${actual.size}.", message)
+        if (actual!!.size != size) {
+            fail("Expected $actual to have size $size, but the actual size was ${actual!!.size}.", message)
         }
     }
 
@@ -47,8 +51,12 @@ class ListMatcher<T>(override val actual: List<T>?) : Matcher<List<T>>(actual) {
             fail("Expected value to contain $expected, but the actual value was null.", message)
         }
 
-        if (!actual.contains(expected)) {
+        if (!actual!!.contains(expected)) {
             fail("Expected $actual to contain $expected", message)
         }
     }
 }
+
+class ListMatcher<T>(override val actual: List<T>?) : CollectionMatcher<T> (actual)
+class SetMatcher<T>(override val actual: Set<T>?) : CollectionMatcher<T> (actual)
+
